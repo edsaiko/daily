@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 来源：https://blog.csdn.net/WXLeader/article/details/119505037 -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>d1-防抖节流</title>
+    <style>
+        body {
+            height: 1000px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button>一键防抖</button>
+    <button class="liu">一键节流</button>
+    <script>
+        // 直接输出会输出什么？
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        Person.prototype.toString = function () {
+            console.log(`'Person[name=${this.name},age=${this.age}]'`);
+        }
+
+        let person1 = new Person('a', 1)
+        let person2 = new Person('b', 2)
+        let person3 = new Person('c', 3)
+        let arr = [person1, person2, person3]
+
+        arr.forEach(function (value) {
+            console.log(value);
+        })
+
+        function A() { }
+        function B(a) { this.a = a }
+        function C(a) { if (a) { this.a = a } }
+
+        A.prototype.a = 1
+        B.prototype.a = 1
+        C.prototype.a = 1
+
+        let a = new A;
+        let b = new B;
+        let c = new C;
+
+        console.log(a)  //Object {  }-<prototype>: Object { a: 1, … }
+        console.log(b)  //Object { a: undefined }-<prototype>: Object { a: 1, … }
+        console.log(c)  //Object {  }-<prototype>: Object { a: 1, … }
+
+        /**
+         *A、C赋值时都赋值到原型上了，只有B赋值到对象上，
+         * 当访问它们的属性a时，A、C本身都没有a，所以找到了函数原型，值为1
+         * B身上有属性a，但传的参数没有赋值，赋值时参数为undefined，所以a为undefined
+        */
+
+    </script>
+
+</body>
+
+</html>
