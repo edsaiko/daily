@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- https://leetcode.cn/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150 -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>d3-移除相同元素</title>
+</head>
+
+<body>
+    <script>
+
+        function del(nums, val) {
+            let k = 0
+            for (let i = 0; i < nums.length; i++) {
+                if (nums[i] !== val) {
+                    nums[k] = nums[i];
+                    k++;
+                }
+            }
+            return k;
+        }
+        let num1=[1,2,3,3,1,4,,,5];
+        console.log(del(num1,3));//7
+        console.log(num1);//[1, 2, 1, 4, undefined, undefined, 5, 空, 5]
+        /**
+         * 用双指针的算法，i负责探路，k负责记录值不相等的队尾
+         * 当i下标所在值不相等时，赋值给k，k、i自增
+         * 相等时，k不变，i自增。
+         * k为不相等的值的数组长度。
+         * 最坏情况是全部值都不相等，k、i都走了数组一遍。
+         */ 
+        
+
+
+    </script>
+</body>
+
+</html>
