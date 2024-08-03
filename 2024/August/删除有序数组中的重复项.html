@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- https://leetcode.cn/problems/remove-duplicates-from-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150 -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>d4-数组去重</title>
+</head>
+
+<body>
+    <script>
+        //1. 删除所有重复元素，只留下唯一元素
+        function delRepeat0(nums) {
+            let k = 0;
+            if (nums[0] !== nums[1]) k++;
+            for (let i = 2; i < nums.length - 1; i++) {
+                // 有重复的判断
+                if (nums[i] !== nums[i - 1] && nums[i] !== nums[i + 1]) {
+                    nums[k++] = nums[i]
+                    console.log('k=', k)
+                }
+            }
+            if (nums[nums.length - 1] !== nums[nums.length - 2])
+                nums[k++] = nums[nums.length - 1]
+            return k;
+        }
+
+        //2. 单纯去重
+        function delRepeat1(nums) {
+            let k = 0;
+            for (let i = 1, j = 0; i < nums.length; i++) {
+                if (nums[j] !== nums[i]) {
+                    nums[k++] = nums[j]
+                    j = i;
+                    console.log('k=', k)
+                }
+            }
+            nums[k++] = nums[nums.length - 1]
+            return k;
+        }
+
+        // 改进：原来是叫快慢指针，那根本不需要j，用j可以统计重复的数量
+        function delRepeat1_1(nums) {
+            let k = 0;
+            for (let i = 1; i < nums.length; i++) {
+                if (nums[k] !== nums[i]) {
+                    nums[++k] = nums[i]
+                }
+            }
+            return ++k;
+        }
+
+        //3. 原地删除重复出现的元素，出现次数超2次的只出现2次
+        // 入队条件有两个，1：不重复，2：只重复1次
+        function delRepeat2(nums) {
+            let k = 0;
+            for (let i = 1; i < nums.length; i++) {
+                if (nums[k] !== nums[i] || nums[k] !== nums[k - 1]) {
+                    nums[++k] = nums[i]
+                }
+            }
+            return ++k;
+        }
+
+        // 改进：只要和队尾的前一个值对比有没有重复就可以了
+        function delRepeat2_1(nums) {
+            if (nums.length < 2) return 2;
+            let k = step = 2; //step为保留几个重复数字
+            for (let i = step; i < nums.length; i++) {
+                if (nums[i] !== nums[k - step]) {
+                    nums[k++] = nums[i]
+                }
+            }
+            // nums.length = k;
+            return k;
+        }
+
+        // [0, 1, 1, 2, 3, 3, 4, 5, 5, 6]
+        let num1 = [0, 1, 1, 1, 2, 2, 3, 3, 4, 5, 5, 5, 6];
+        console.log(delRepeat2_1(num1));//7
+        console.log(num1);//[1, 2, 1, 4, undefined, undefined, 5, 空, 5]
+
+
+    </script>
+
+</body>
+
+</html>
